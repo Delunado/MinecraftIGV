@@ -6,11 +6,12 @@
 class WorldManager
 {
 private:
-	std::vector<std::vector<std::vector<Bloque>>> worldMatrix;
+	Bloque* worldMatrix[5][5][5];
 public:
 	WorldManager();
 	~WorldManager();
 
 	void InitWorld(int height, int width, int depth);
+	void DrawWorld();
 };
 

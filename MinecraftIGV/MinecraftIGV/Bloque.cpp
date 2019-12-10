@@ -1,13 +1,12 @@
 #include "pch.h"
 #include "Bloque.h"
+#include <iostream>
 
-
-Bloque::Bloque(float _x, float _y, float _z): x(_x), y(_y), z(_z)
+Bloque::Bloque(float _x, float _y, float _z): side (new Quad())
 {
-	for (int i = 0; i < 6; i++)
-	{
-		sides[i] = new Quad();
-	}
+	x = _x * size;
+	y = _y * size;
+	z = _z * size;
 }
 
 Bloque::~Bloque()
@@ -23,57 +22,45 @@ void Bloque::DrawBlock() {
 
 		//LadoBajo
 		glPushMatrix();
-
 			glTranslatef(0, 0, 0);
 			glRotatef(0, 1.0f, 0.0f, 0.0f);
-			sides[0]->pintar_quad(50,50);
-
+			side->pintar_quad(size);
 		glPopMatrix();
 
 		//LadoAtras
 		glPushMatrix();
-
-		glTranslatef(0, 0, 0);
-		glRotatef(-90, 1.0f, 0.0f, 0.0f);
-		sides[1]->pintar_quad(50, 50);
-
+			glTranslatef(0, 0, 0);
+			glRotatef(-90, 1.0f, 0.0f, 0.0f);
+			side->pintar_quad(size);
 		glPopMatrix();
 
 		//LadoArriba
 		glPushMatrix();
-
-		glTranslatef(0, 5, 0);
-		glRotatef(0, 1.0f, 0.0f, 0.0f);
-		sides[1]->pintar_quad(50, 50);
-
+			glTranslatef(0, size, 0);
+			glRotatef(0, 1.0f, 0.0f, 0.0f);
+			side->pintar_quad(size);
 		glPopMatrix();
 
 
 		//LadoEnfrente
 		glPushMatrix();
-
-		glTranslatef(0, 0, 5);
-		glRotatef(-90, 1.0f, 0.0f, 0.0f);
-		sides[1]->pintar_quad(50, 50);
-
+			glTranslatef(0, 0, size);
+			glRotatef(-90, 1.0f, 0.0f, 0.0f);
+			side->pintar_quad(size);
 		glPopMatrix();
 
 		//LadoAtras
 		glPushMatrix();
-
-		glTranslatef(0, 0, 0);
-		glRotatef(90, 0.0f, 0.0f, 1.0f);
-		sides[1]->pintar_quad(50, 50);
-
+			glTranslatef(0, 0, 0);
+			glRotatef(90, 0.0f, 0.0f, 1.0f);
+			side->pintar_quad(size);
 		glPopMatrix();
 
 		//LadoEnfrente
 		glPushMatrix();
-
-		glTranslatef(5, 0, 0);
-		glRotatef(90, 0.0f, 0.0f, 1.0f);
-		sides[1]->pintar_quad(50, 50);
-
+			glTranslatef(size, 0, 0);
+			glRotatef(90, 0.0f, 0.0f, 1.0f);
+			side->pintar_quad(size);
 		glPopMatrix();
 
 	glPopMatrix();

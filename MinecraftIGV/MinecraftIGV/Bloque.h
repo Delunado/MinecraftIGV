@@ -2,12 +2,10 @@
 #include <cstdlib>
 #include <stdio.h>
 
-#include "igvEscena3D.h"
-#include "igvFuenteLuz.h"
-#include "igvMaterial.h"
-#include "igvTextura.h"
 #include "Quad.h"
 
+#ifndef __BLOQUE
+#define __BLOQUE
 class Bloque
 {
 public:
@@ -19,6 +17,9 @@ public:
 	void DrawBlock();
 
 private: 
-	Quad* sides[6];
+	const float size = 1.0f;
+
+	Quad* side;
 };
 
+#endif

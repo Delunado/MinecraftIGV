@@ -3,16 +3,15 @@
 #include <stdio.h>
 
 #include "igvEscena3D.h"
-#include "igvFuenteLuz.h"
 #include "igvMaterial.h"
 #include "igvTextura.h"
-#include "Quad.h"
-#include "Bloque.h"
+
 
 // Metodos constructores 
 igvEscena3D::igvEscena3D () {
 	ejes = true;
 	coePhong = 120;
+	worldManager = new WorldManager();
 }
 
 igvEscena3D::~igvEscena3D() {
@@ -46,42 +45,6 @@ void pintar_ejes(void) {
 }
 
 
-void pintar_quad(float div_x, float div_z) {
-	float ini_x = 0.0;
-	float ini_z = 0.0;
-	float tam_x = 5.0;
-	float tam_z = 5.0;
-
-	glNormal3f(0, 1, 0);
-	for (int i = 0; i < div_x; i++)
-	{
-		for (int j = 0; j < div_z; j++)
-		{
-			glBegin(GL_QUADS);
-
-			glTexCoord2f((ini_x / div_x) / tam_x, 1 - (ini_z / div_z) / tam_z);
-			glVertex3f((ini_x / div_x), 0.0, (ini_z / div_z));
-
-			glTexCoord2f((ini_x / div_x) / tam_x, 1 - ((ini_z + tam_z) / div_z) / tam_z);
-			glVertex3f((ini_x / div_x), 0.0, (ini_z + tam_z) / div_z);
-
-			glTexCoord2f(((ini_x + tam_x) / div_x) / tam_x, 1 - ((ini_z + tam_z) / div_z) / tam_z);
-			glVertex3f((ini_x + tam_x) / div_x, 0.0, (ini_z + tam_z) / div_z);
-
-			glTexCoord2f(((ini_x + tam_x) / div_x) / tam_x, 1 - (ini_z / div_z) / tam_z);
-			glVertex3f((ini_x + tam_x) / div_x, 0.0, (ini_z / div_z));
-
-			ini_z += tam_z;
-			glEnd();
-		}
-
-		ini_x += tam_x;
-		ini_z = 0.0;
-	}
-
-}
-
-
 void igvEscena3D::visualizar(void) {
 	
 	glPushMatrix(); 
@@ -96,11 +59,26 @@ void igvEscena3D::visualizar(void) {
 		//QUADS----------------------------------------
 		GLfloat white[] = { 1,1,1 };
 		glMaterialfv(GL_FRONT, GL_EMISSION, white);
-		Bloque bloque(0, 0, 0);
-		Bloque bloque2(0, 5, 0);
+
+		//Bloque bloque(0, 0, 0);
+		//Bloque bloque2(0, 1, 0);
+		//Bloque bloque3(1, 0, 0);
+		//Bloque bloque4(0, 0, 1);
+		//Bloque bloque5(0, 0, 2);
+		//Bloque bloque6(0, 1, 1);
 		
-		bloque.DrawBlock();
-		bloque2.DrawBlock();
+		glPushMatrix();
+
+		//bloque.DrawBlock();
+		//bloque2.DrawBlock();
+		//bloque3.DrawBlock();
+		//bloque4.DrawBlock();
+		//bloque5.DrawBlock();
+		//bloque6.DrawBlock();
+
+		worldManager->DrawWorld();
+
+		glPopMatrix();
 
 
 	glPopMatrix(); // restaura la matriz de modelado

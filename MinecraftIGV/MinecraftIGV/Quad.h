@@ -2,11 +2,13 @@
 #include <cstdlib>
 #include <stdio.h>
 
-#include "igvEscena3D.h"
-#include "igvFuenteLuz.h"
-#include "igvMaterial.h"
-#include "igvTextura.h"
-
+#if defined(__APPLE__) && defined(__MACH__)
+#include <GLUT/glut.h>
+#include <OpenGL/gl.h>
+#include <OpenGL/glu.h>
+#else
+#include <GL/glut.h>
+#endif
 
 #ifndef __QUAD
 #define __QUAD
@@ -17,7 +19,7 @@ public:
 	Quad();
 	~Quad();
 
-	void pintar_quad(float div_x, float div_z);	
+	void pintar_quad(float tam, float div_x = 50.0f, float div_z = 50.0f);	
 };
 
 #endif

@@ -11,6 +11,8 @@
 
 #include "igvFuenteLuz.h"
 #include "igvMallaTriangulos.h"
+#include "WorldManager.h"
+
 
 class igvEscena3D {
 	protected:
@@ -23,9 +25,10 @@ class igvEscena3D {
 
 		double posXFoco, posYFoco;
 
+		WorldManager* worldManager;
+
 	public:
 		// atributos públicos
-		igvMallaTriangulos *malla; // malla de triángulos asociada a la escena
 
 		// Constructores por defecto y destructor
 		igvEscena3D();

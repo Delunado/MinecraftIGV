@@ -7,11 +7,11 @@ Quad::Quad()
 	
 }
 
-void Quad::pintar_quad(float div_x, float div_z) {
+void Quad::pintar_quad(float tam, float div_x, float div_z) {
 	float ini_x = 0.0;
 	float ini_z = 0.0;
-	float tam_x = 5.0;
-	float tam_z = 5.0;
+	float tam_x = tam;
+	float tam_z = tam;
 
 	glNormal3f(0, 1, 0);
 	for (int i = 0; i < div_x; i++)
@@ -41,7 +41,6 @@ void Quad::pintar_quad(float div_x, float div_z) {
 	}
 
 }
-
 
 
 Quad::~Quad()
