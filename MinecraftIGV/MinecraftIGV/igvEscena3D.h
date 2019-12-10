@@ -17,6 +17,11 @@ class igvEscena3D {
 		// Atributos
 
 		bool ejes;
+		double coeDif;
+		double coeEsp;
+		double coePhong;
+
+		double posXFoco, posYFoco;
 
 	public:
 		// atributos públicos
