@@ -96,8 +96,11 @@ void igvEscena3D::visualizar(void) {
 		//QUADS----------------------------------------
 		GLfloat white[] = { 1,1,1 };
 		glMaterialfv(GL_FRONT, GL_EMISSION, white);
-		Bloque bloque;
+		Bloque bloque(0, 0, 0);
+		Bloque bloque2(0, 5, 0);
+		
 		bloque.DrawBlock();
+		bloque2.DrawBlock();
 
 
 	glPopMatrix(); // restaura la matriz de modelado
