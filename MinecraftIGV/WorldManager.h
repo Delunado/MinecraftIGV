@@ -1,19 +1,20 @@
 #pragma once
 
 #include <vector>
+#include "TexturesManager.h"
 #include "Grid3D.h"
-#include "Bloque.h"
 
 class WorldManager
 {
 private:
 	int height, width, depth;
-	Grid3D<Bloque*> worldGrid;
+	Grid3D worldGrid;
+	TexturesManager texturesManager;
 public:
-	WorldManager();
+	WorldManager(int height, int width, int depth);
 	~WorldManager();
 
-	void InitWorld(int height, int width, int depth);
+	void InitWorld();
 	void DrawWorld();
 };
 

@@ -1,6 +1,7 @@
 #include "pch.h"
 #include <cstdlib>
 #include <stdio.h>
+#include <iostream>
 
 #include "igvInterfaz.h"
 
@@ -9,7 +10,7 @@ extern igvInterfaz interfaz; // los callbacks deben ser estaticos y se requiere 
 
 // Metodos constructores -----------------------------------
 
-igvInterfaz::igvInterfaz () {}
+igvInterfaz::igvInterfaz ():worldManager(2, 2, 2) {}
 
 igvInterfaz::~igvInterfaz () {}
 
@@ -20,6 +21,9 @@ void igvInterfaz::crear_mundo(void) {
 	// crear cámaras
 	interfaz.camara.set(IGV_PARALELA, igvPunto3D(3.0,2.0,4),igvPunto3D(0,0,0),igvPunto3D(0,1.0,0),
 		                                -1*4.5, 1*4.5, -1*4.5, 1*4.5, -1*3, 200);
+	worldManager.InitWorld();
+
+	interfaz.escena.SetWorldManager(&worldManager);
 }
 
 void igvInterfaz::configura_entorno(int argc, char** argv,
@@ -110,6 +114,8 @@ void igvInterfaz::set_glutDisplayFunc() {
 
 	//visualiza la escena
 	interfaz.escena.visualizar();
+
+	//actualiza el mundo
 
 	// refresca la ventana
 	glutSwapBuffers(); // se utiliza, en vez de glFlush(), para evitar el parpadeo

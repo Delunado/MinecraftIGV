@@ -4,14 +4,11 @@
 
 #include "igvEscena3D.h"
 #include "igvMaterial.h"
-#include "igvTextura.h"
-
 
 // Metodos constructores 
 igvEscena3D::igvEscena3D () {
 	ejes = true;
 	coePhong = 120;
-	worldManager = new WorldManager();
 }
 
 igvEscena3D::~igvEscena3D() {
@@ -52,29 +49,11 @@ void igvEscena3D::visualizar(void) {
 		//Ejes-----------------------------------------
 		if (ejes) pintar_ejes();
 
-		//Texture--------------------------------------
-		igvTextura texture("block.bmp");
-		texture.aplicar();
-
 		//QUADS----------------------------------------
 		GLfloat white[] = { 1,1,1 };
 		glMaterialfv(GL_FRONT, GL_EMISSION, white);
-
-		//Bloque bloque(0, 0, 0);
-		//Bloque bloque2(0, 1, 0);
-		//Bloque bloque3(1, 0, 0);
-		//Bloque bloque4(0, 0, 1);
-		//Bloque bloque5(0, 0, 2);
-		//Bloque bloque6(0, 1, 1);
 		
 		glPushMatrix();
-
-		//bloque.DrawBlock();
-		//bloque2.DrawBlock();
-		//bloque3.DrawBlock();
-		//bloque4.DrawBlock();
-		//bloque5.DrawBlock();
-		//bloque6.DrawBlock();
 
 		worldManager->DrawWorld();
 

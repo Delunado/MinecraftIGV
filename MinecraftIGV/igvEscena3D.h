@@ -43,6 +43,8 @@ class igvEscena3D {
 		bool get_ejes() {return ejes;};
 		void set_ejes(bool _ejes){ejes = _ejes;};
 
+		void SetWorldManager(WorldManager* _worldManager) { worldManager = _worldManager; }
+
 };
 
 #endif

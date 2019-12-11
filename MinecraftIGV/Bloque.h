@@ -9,16 +9,25 @@
 class Bloque
 {
 public:
-	Bloque(float _x, float _y, float _z);
+	Bloque(int id, int _x, int _y, int _z);
 	~Bloque();
 
-	float x, y, z;
+	int x, y, z;
 	float xMundo, yMundo, zMundo;
 
 	void DrawBlock();
 
+	int GetId() {
+		return id;
+	}
+
+	void SetId(int _id) {
+		id = _id;
+	}
+
 private: 
 	const float size = 1.0f;
+	int id;
 
 	Quad* side;
 };

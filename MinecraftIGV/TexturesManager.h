@@ -14,7 +14,7 @@ class TexturesManager
 private:
 	igvTextura** textureVector;
 public:
-	TexturesManager();
+	//TexturesManager();
 	~TexturesManager();
 
     igvTextura* GetTexture(TEXTURES texture);	

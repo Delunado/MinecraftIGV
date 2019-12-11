@@ -2,11 +2,11 @@
 #include "Bloque.h"
 #include <iostream>
 
-Bloque::Bloque(float _x, float _y, float _z): x(_x), y(_y), z(_z), side (new Quad())
+Bloque::Bloque(int _id, int _x, int _y, int _z): id(_id), x(_x), y(_y), z(_z), side (new Quad())
 {
-	xMundo = _x * size;
-	yMundo = _y * size;
-	zMundo = _z * size;	
+	xMundo = (float)_x * size;
+	yMundo = (float)_y * size;
+	zMundo = (float)_z * size;
 }
 
 Bloque::~Bloque()

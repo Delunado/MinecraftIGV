@@ -13,6 +13,7 @@
 
 #include "igvEscena3D.h"
 #include "igvCamara.h"
+#include "WorldManager.h"
 
 using namespace std;
 
@@ -22,8 +23,9 @@ class igvInterfaz {
 		int ancho_ventana; // ancho inicial de la ventana de visualizacion
 		int alto_ventana;  // alto inicial de la ventana de visualizacion
 
-    igvEscena3D escena; // escena que se visualiza en la ventana definida por igvInterfaz
+		igvEscena3D escena; // escena que se visualiza en la ventana definida por igvInterfaz
 		igvCamara camara; // cámara que se utiliza para visualizar la escena
+		WorldManager worldManager; //se encarga de gestionar el mundo de juego
 
 	public:
 		// Constructores por defecto y destructor
