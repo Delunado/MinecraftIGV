@@ -1,12 +1,14 @@
 #pragma once
 
 #include <vector>
+#include "Grid3D.h"
 #include "Bloque.h"
 
 class WorldManager
 {
 private:
-	Bloque* worldMatrix[5][5][5];
+	int height, width, depth;
+	Grid3D<Bloque*> worldGrid;
 public:
 	WorldManager();
 	~WorldManager();

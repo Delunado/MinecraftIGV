@@ -2,11 +2,11 @@
 #include "Bloque.h"
 #include <iostream>
 
-Bloque::Bloque(float _x, float _y, float _z): side (new Quad())
+Bloque::Bloque(float _x, float _y, float _z): x(_x), y(_y), z(_z), side (new Quad())
 {
-	x = _x * size;
-	y = _y * size;
-	z = _z * size;
+	xMundo = _x * size;
+	yMundo = _y * size;
+	zMundo = _z * size;	
 }
 
 Bloque::~Bloque()
@@ -18,7 +18,7 @@ void Bloque::DrawBlock() {
 
 	glPushMatrix();
 
-	glTranslatef(x, y, z);
+	glTranslatef(xMundo, yMundo, zMundo);
 
 		//LadoBajo
 		glPushMatrix();

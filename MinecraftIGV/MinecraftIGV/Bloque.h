@@ -13,6 +13,7 @@ public:
 	~Bloque();
 
 	float x, y, z;
+	float xMundo, yMundo, zMundo;
 
 	void DrawBlock();
 
