@@ -2,7 +2,7 @@
 #include "Bloque.h"
 #include <iostream>
 
-Bloque::Bloque(int _id, int _x, int _y, int _z): id(_id), x(_x), y(_y), z(_z), side (new Quad())
+Bloque::Bloque(TEXTURES _textureType, int _x, int _y, int _z): textureType(_textureType), x(_x), y(_y), z(_z), side (new Quad())
 {
 	xMundo = (float)_x * size;
 	yMundo = (float)_y * size;
@@ -13,7 +13,14 @@ Bloque::~Bloque()
 {
 }
 
+///Deprecated 
+void Bloque::SetId(int _id) {
+	id = _id;
+}
+
 void Bloque::DrawBlock() {
+	if (textureType == TEXTURES::NONE)
+		return;
 
 	glPushMatrix();
 
@@ -63,6 +70,4 @@ void Bloque::DrawBlock() {
 		glPopMatrix();
 
 	glPopMatrix();
-
-
 }

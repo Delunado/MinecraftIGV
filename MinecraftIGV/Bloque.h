@@ -3,13 +3,16 @@
 #include <stdio.h>
 
 #include "Quad.h"
+#include "igvTextura.h"
+#include "TextureTypes.h"
+#include <iostream>
 
 #ifndef __BLOQUE
 #define __BLOQUE
 class Bloque
 {
 public:
-	Bloque(int id, int _x, int _y, int _z);
+	Bloque(TEXTURES textureType, int _x, int _y, int _z);
 	~Bloque();
 
 	int x, y, z;
@@ -21,8 +24,18 @@ public:
 		return id;
 	}
 
-	void SetId(int _id) {
-		id = _id;
+	void SetId(int _id);
+
+	void SetTextureType(TEXTURES _textureType) {
+		textureType = _textureType;
+	}
+
+	void SetTexture(igvTextura* _texture) {
+		texture = _texture;
+	}
+
+	TEXTURES GetTextureType() {
+		return textureType;
 	}
 
 	void SetPosition(int _x, int _y, int _z) {
@@ -34,11 +47,20 @@ public:
 		zMundo = (float)_z * size;
 	}
 
+	void ApplyTexture() {
+		if (texture != NULL)
+			texture->aplicar();
+		else
+			std::cout << "ERROR: TEXTURA NO ASIGNADA EN BLOQUE" << std::endl;
+	}
+
 private: 
 	const float size = 1.0f;
 	int id;
 
 	Quad* side;
+	igvTextura* texture;
+	TEXTURES textureType;
 };
 
 #endif

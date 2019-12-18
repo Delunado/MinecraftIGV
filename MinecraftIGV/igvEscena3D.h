@@ -26,7 +26,6 @@ class igvEscena3D {
 		double posXFoco, posYFoco;
 
 		WorldManager* worldManager;
-
 	public:
 		// atributos públicos
 

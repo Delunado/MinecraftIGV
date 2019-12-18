@@ -1,5 +1,12 @@
 #include "pch.h"
 #include "TexturesManager.h"
+#include "TextureTypes.h"
+
+
+TexturesManager::TexturesManager()
+{
+	
+}
 
 TexturesManager::~TexturesManager()
 {
@@ -7,26 +14,30 @@ TexturesManager::~TexturesManager()
 
 void TexturesManager::LoadTextures()
 {
-	textureVector = new igvTextura*[3];
-	igvTextura textureBlock("Block.bmp");
-	igvTextura textureStone("stone.bmp");
+	igvTextura* textureBlock = new igvTextura("Block.bmp");
+	igvTextura* textureStone = new igvTextura("stone.bmp");
 
-	textureVector[0] = &textureBlock;
-	textureVector[1] = &textureStone;
+	textureVector[0] = textureBlock;
+	textureVector[1] = textureStone;
+}
+
+void TexturesManager::SetTextureToBlock(Bloque* block)
+{
+	block->SetTexture(GetTexture(block->GetTextureType()));
 }
 
 igvTextura* TexturesManager::GetTexture(TEXTURES texture) {
-	igvTextura* textura = NULL;
+	igvTextura* auxTexture = NULL;
 
 	switch (texture)
 	{
 	case TEXTURES::DIRT:
-		textura = textureVector[0];
+		auxTexture = textureVector[0];
 		break;
 	case TEXTURES::STONE:
-		textura = textureVector[1];
+		auxTexture = textureVector[1];
 		break;
 	}
 
-	return textura;
+	return auxTexture;
 }

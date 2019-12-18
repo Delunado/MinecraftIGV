@@ -13,7 +13,7 @@ Grid3D::Grid3D(int _width, int _height, int _depth): height(_height), width(_wid
 	for (int x = 0; x < _width; x++) {
 		for (int y = 0; y < _height; y++) {
 			for (int z = 0; z < _depth; z++) {
-				world->push_back(new Bloque(-1, x, y, z));
+				world->push_back(new Bloque(TEXTURES::NONE, x, y, z));
 				//std::cout << "Pos en matriz: " << x << ", " << y << ", " << z << " - Pos en vector: " << x * height * depth + y * depth + z << std::endl;
 			}
 		}

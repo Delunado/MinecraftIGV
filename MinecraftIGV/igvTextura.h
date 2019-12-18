@@ -24,7 +24,6 @@ class igvTextura {
 
 	public:
 		// Constructores por defecto y destructor
-		igvTextura(); // Textura ajedrez de 64 x 64 texeles
 		igvTextura(const char *fichero); // Textura cargada desde un fichero BMP
 		~igvTextura();
 

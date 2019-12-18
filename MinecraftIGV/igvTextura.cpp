@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "igvTextura.h"
+#include <iostream>
 
 // Metodos constructores y destructor
 
@@ -28,10 +29,13 @@ igvTextura::igvTextura(const char *fichero) {
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 
 	delete imagen;
+
+	std::cout << "Creado con ID: " << idTextura << std::endl;
 }
 
 void igvTextura::aplicar(void) {
   glBindTexture(GL_TEXTURE_2D, idTextura);
+  std::cout << "ID: " << idTextura << std::endl;
 }
 
 igvTextura::~igvTextura() {
