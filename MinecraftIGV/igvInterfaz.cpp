@@ -10,7 +10,7 @@ extern igvInterfaz interfaz; // los callbacks deben ser estaticos y se requiere 
 
 // Metodos constructores -----------------------------------
 
-igvInterfaz::igvInterfaz ():worldManager(new WorldManager(6, 1, 6)) {}
+igvInterfaz::igvInterfaz ():worldManager(new WorldManager(2, 1, 3)) {}
 
 igvInterfaz::~igvInterfaz () {}
 
@@ -25,6 +25,8 @@ void igvInterfaz::crear_mundo(void) {
 	std::cout << "Iniciando el mundo" << std::endl;
 	worldManager->InitWorld();
 	std::cout << "Mundo iniciado" << std::endl;
+
+	interfaz.oldFormat = interfaz.get_alto_ventana();
 
 	interfaz.escena.SetWorldManager(worldManager);
 }
@@ -68,25 +70,71 @@ void igvInterfaz::set_glutSpecialFunc(int key, int x, int y) {
 
 void igvInterfaz::set_glutKeyboardFunc(unsigned char key, int x, int y) {
 	switch (key) {
-		case 'd': // Apartado E: aumentar en 0.1 la componente R del coeficiente difuso del material
+
+		case 'c': 
+
+			if (interfaz.camara.tipo != IGV_PERSPECTIVA) {
+
+				interfaz.camara.set(IGV_PERSPECTIVA, interfaz.igvNormal1, interfaz.igvNormal2, interfaz.igvNormal3,
+					55, 1.3f, 0.01, 100);
+			}
+			else {
+
+				interfaz.camara.set(IGV_PARALELA, interfaz.igvNormal1, interfaz.igvNormal2, interfaz.igvNormal3,
+					-1 * 3, 1 * 3, -1 * 3, 1 * 3, -1 * 3, 200);
+			}
+
+			interfaz.camara.aplicar();
 
 		break;
-		case 'D': // Apartado E: disminuir en 0.1 la componente R del coeficiente difuso del material
+		case 'x':
+			interfaz.camara.cambiarDistanciaPlano(0.2);
+			interfaz.camara.aplicar();
+		break;
+		case 'z':
+			interfaz.camara.cambiarDistanciaPlano(-0.2);
+			interfaz.camara.aplicar();
+		break;
+		case 'v': 
+
+			if (interfaz.newFormat == 0) {
+
+				interfaz.newFormat = interfaz.get_ancho_ventana() * 9 / 16;
+
+
+			}
+			else {
+
+				interfaz.newFormat = 0;
+
+			}
+
+			interfaz.set_glutDisplayFunc();
+		break;
+
+		case 'a':
 
 		break;
-		case 's': // Apartado E: aumentar en 0.1 la componente R del coeficiente especular del material
+		case 'd':
+	
+		break;
+		case 'w':
+			interfaz.camara.SumCameraW(0.0f, 1.0f, 5.0f,     0.0f + 0.0f, 1.0f, 5.0f + -1.0f );
+		break;
+		case 's':
 
 		break;
-		case 'S': // Apartado E: disminuir en 0.1 la componente R del coeficiente especular del material
+		case 'q':
 
 		break;
-		case 'p': // Apartado E: aumentar en 10 el exponente de Phong del material
+		case 'e':
 
 		break;
-		case 'P': // Apartado E: disminuir en 10 el exponente de Phong del material
-
+		case 'b':
+			interfaz.camara.zoom(0.2f);
 		break;
-		case 'e': // activa/desactiva la visualizacion de los ejes
+
+		case 'j': // activa/desactiva la visualizacion de los ejes
 			interfaz.escena.set_ejes(interfaz.escena.get_ejes()?false:true);
 	  break;
     case 27: // tecla de escape para SALIR
@@ -110,10 +158,14 @@ void igvInterfaz::set_glutDisplayFunc() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // borra la ventana y el z-buffer
 
 	// se establece el viewport
-	glViewport(0, 0, interfaz.get_ancho_ventana(), interfaz.get_alto_ventana());
-
-	// establece los parámetros de la cámara y de la proyección
-	interfaz.camara.aplicar();
+	if (interfaz.newFormat == 0) {
+		interfaz.set_glutReshapeFunc(interfaz.get_ancho_ventana(), interfaz.oldFormat);
+		glViewport(0, 0, interfaz.get_ancho_ventana(), interfaz.get_alto_ventana());
+	}
+	else {
+		interfaz.set_glutReshapeFunc(interfaz.get_ancho_ventana(), interfaz.newFormat);
+		glViewport(0, interfaz.get_ancho_ventana() / 16, interfaz.get_ancho_ventana(), interfaz.get_alto_ventana());
+	}
 
 	//visualiza la escena
 	interfaz.escena.visualizar();

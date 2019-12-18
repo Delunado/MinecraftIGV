@@ -37,6 +37,7 @@ class igvEscena3D {
 		// Metodos estáticos
 
 		// Métodos
+
 		// método con las llamadas OpenGL para visualizar la escena
     void visualizar();
 

@@ -55,6 +55,21 @@ void igvCamara::set(tipoCamara _tipo, igvPunto3D _P0, igvPunto3D _r, igvPunto3D 
 	zfar = _zfar;
 }
 
+void igvCamara::SumCameraW(float _POx, float _POy, float _POz, float _rX, float _rY, float _rZ)
+{
+	POx += _POx;
+	POy += _POy;
+	POz += _POz;
+	rX += _rX;
+	rY += _rY;
+	rZ += _rZ;
+
+	igvPunto3D po(POx, POy, POz);
+	igvPunto3D pe(rX, rY, rZ);
+	P0 = po;
+	r = pe;
+}
+
 void igvCamara::aplicar(void) {
 	
 	glMatrixMode (GL_PROJECTION);
@@ -75,6 +90,22 @@ void igvCamara::aplicar(void) {
 	gluLookAt(P0[X],P0[Y],P0[Z], r[X],r[Y],r[Z], V[X],V[Y],V[Z]);
 }
 
-void igvCamara::zoom(double factor) {
 
+void igvCamara::cambiarDistanciaPlano(double factor) {
+
+	set(tipo, P0, r, V, angulo, raspecto, znear += factor, zfar);
+}
+
+void igvCamara::zoom(double factor) {
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+
+	if (tipo == IGV_PERSPECTIVA) {
+		gluPerspective(angulo -= factor, raspecto, znear, zfar);
+	}
+	else {
+		glOrtho(xwmin = xwmin + factor, xwmax = xwmax - factor, ywmin = ywmin + factor, ywmax = ywmax - factor, znear, zfar);
+	}
+
+	glMatrixMode(GL_MODELVIEW);
 }

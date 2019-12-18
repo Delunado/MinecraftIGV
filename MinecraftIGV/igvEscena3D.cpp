@@ -14,7 +14,6 @@ igvEscena3D::igvEscena3D () {
 igvEscena3D::~igvEscena3D() {
 }
 
-
 // Metodos publicos 
 
 void pintar_ejes(void) {
@@ -61,7 +60,6 @@ void igvEscena3D::visualizar(void) {
 			worldManager->DrawWorld();
 
 		glPopMatrix();
-
 
 	glPopMatrix(); // restaura la matriz de modelado
 }
