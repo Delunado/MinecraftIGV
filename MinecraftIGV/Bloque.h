@@ -25,6 +25,15 @@ public:
 		id = _id;
 	}
 
+	void SetPosition(int _x, int _y, int _z) {
+		x = _x;
+		y = _y;
+		z = _z;
+		xMundo = (float)_x * size;
+		yMundo = (float)_y * size;
+		zMundo = (float)_z * size;
+	}
+
 private: 
 	const float size = 1.0f;
 	int id;

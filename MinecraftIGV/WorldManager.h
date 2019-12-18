@@ -11,7 +11,7 @@ private:
 	Grid3D worldGrid;
 	TexturesManager texturesManager;
 public:
-	WorldManager(int height, int width, int depth);
+	WorldManager(int _width, int _height, int _depth);
 	~WorldManager();
 
 	void InitWorld();

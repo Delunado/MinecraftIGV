@@ -52,10 +52,13 @@ void igvEscena3D::visualizar(void) {
 		//QUADS----------------------------------------
 		GLfloat white[] = { 1,1,1 };
 		glMaterialfv(GL_FRONT, GL_EMISSION, white);
-		
+
+		igvTextura textura("stone.bmp");
+		textura.aplicar();
+
 		glPushMatrix();
 
-		worldManager->DrawWorld();
+			worldManager->DrawWorld();
 
 		glPopMatrix();
 

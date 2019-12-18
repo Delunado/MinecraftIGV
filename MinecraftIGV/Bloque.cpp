@@ -13,7 +13,6 @@ Bloque::~Bloque()
 {
 }
 
-
 void Bloque::DrawBlock() {
 
 	glPushMatrix();

@@ -10,7 +10,7 @@ extern igvInterfaz interfaz; // los callbacks deben ser estaticos y se requiere 
 
 // Metodos constructores -----------------------------------
 
-igvInterfaz::igvInterfaz ():worldManager(2, 2, 2) {}
+igvInterfaz::igvInterfaz ():worldManager(new WorldManager(6, 1, 6)) {}
 
 igvInterfaz::~igvInterfaz () {}
 
@@ -21,9 +21,12 @@ void igvInterfaz::crear_mundo(void) {
 	// crear cámaras
 	interfaz.camara.set(IGV_PARALELA, igvPunto3D(3.0,2.0,4),igvPunto3D(0,0,0),igvPunto3D(0,1.0,0),
 		                                -1*4.5, 1*4.5, -1*4.5, 1*4.5, -1*3, 200);
-	worldManager.InitWorld();
 
-	interfaz.escena.SetWorldManager(&worldManager);
+	std::cout << "Iniciando el mundo" << std::endl;
+	worldManager->InitWorld();
+	std::cout << "Mundo iniciado" << std::endl;
+
+	interfaz.escena.SetWorldManager(worldManager);
 }
 
 void igvInterfaz::configura_entorno(int argc, char** argv,
@@ -116,6 +119,7 @@ void igvInterfaz::set_glutDisplayFunc() {
 	interfaz.escena.visualizar();
 
 	//actualiza el mundo
+
 
 	// refresca la ventana
 	glutSwapBuffers(); // se utiliza, en vez de glFlush(), para evitar el parpadeo

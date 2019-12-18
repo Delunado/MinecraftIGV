@@ -25,7 +25,7 @@ class igvInterfaz {
 
 		igvEscena3D escena; // escena que se visualiza en la ventana definida por igvInterfaz
 		igvCamara camara; // cámara que se utiliza para visualizar la escena
-		WorldManager worldManager; //se encarga de gestionar el mundo de juego
+		WorldManager* worldManager; //se encarga de gestionar el mundo de juego
 
 	public:
 		// Constructores por defecto y destructor

@@ -3,16 +3,14 @@
 
 #include "Bloque.h"
 
-typedef std::vector<std::vector<std::vector<Bloque*>>> matrix3D;
-
 class Grid3D
 {
 private:
 	int height, width, depth;
-	matrix3D* world;
+	std::vector<Bloque*>* world;
 
 public:
-	Grid3D(int height, int width, int depth);
+	Grid3D(int _width, int _height, int _depth);
 	~Grid3D();
 
 	Bloque* GetBlock(int x, int y, int z);
