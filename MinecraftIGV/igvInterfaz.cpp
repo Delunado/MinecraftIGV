@@ -115,15 +115,16 @@ void igvInterfaz::set_glutKeyboardFunc(unsigned char key, int x, int y) {
 		break;
 		case 'w':
 			interfaz.camara.MoveForward(1.0);
+
 		break;
 		case 's':
 			interfaz.camara.MoveForward(-1.0);
 		break;
 		case 'q':
-
+			interfaz.camara.MoveUp(1.0);
 		break;
 		case 'e':
-
+			interfaz.camara.MoveUp(-1.0);
 		break;
 		case 'z':
 			interfaz.camara.zoom(0.2f);

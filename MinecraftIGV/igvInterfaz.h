@@ -24,14 +24,14 @@ class igvInterfaz {
 		int alto_ventana;  // alto inicial de la ventana de visualizacion
 
 		//-------------------------------------------------------------------CAMARA
-		igvPunto3D igvNormal1 = igvPunto3D(4.0, 5.0, 8.0);
-		igvPunto3D igvNormal2 = igvPunto3D(0.0, 0.0, 0.0);
-		igvPunto3D igvNormal3 = igvPunto3D(0.0, 1.0, 0);
+		igvPunto3D igvNormal1 = igvPunto3D(4.0, 5.0, 10.0);
+		igvPunto3D igvNormal2 = igvPunto3D(4.0, 5.0, 0.0);
+		igvPunto3D igvNormal3 = igvPunto3D(0.0, 1.0, 0.0);
 
 		float oldFormat = 0;
 		float newFormat = 0;
 		
-		//--------------------------------------------------------------------FIN CAMARA
+		//-------------------------------------------------------------------FIN CAMARA
 
 		igvEscena3D escena; // escena que se visualiza en la ventana definida por igvInterfaz
 		igvCamara camara; // cámara que se utiliza para visualizar la escena

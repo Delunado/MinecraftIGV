@@ -68,6 +68,15 @@ void igvCamara::MoveForward(double speed)
 	r += (forward * speed);
 }
 
+void igvCamara::MoveUp(double speed)
+{
+	igvPunto3D up = {0,1,0};
+
+	//Moving
+	P0 += (up * speed);
+	r += (up * speed);
+}
+
 void igvCamara::RotateLeft(double speed)
 {
 	igvPunto3D forward = r - P0;

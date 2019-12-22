@@ -64,6 +64,7 @@ class igvCamara {
 			                         double _angulo, double _raspecto, double _znear, double _zfar);
 
 		void MoveForward(double speed);
+		void MoveUp(double speed);
 		void RotateLeft(double speed);
 		void RotateRight(double speed);
 
