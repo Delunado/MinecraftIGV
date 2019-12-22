@@ -22,6 +22,8 @@ void Bloque::DrawBlock() {
 	if (textureType == TEXTURES::NONE)
 		return;
 
+	texture->aplicar();
+
 	glPushMatrix();
 
 	glTranslatef(xMundo, yMundo, zMundo);

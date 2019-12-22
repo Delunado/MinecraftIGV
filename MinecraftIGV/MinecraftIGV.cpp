@@ -10,8 +10,8 @@ igvInterfaz interfaz;
 int main(int argc, char** argv) {
 	// inicializa la ventana de visualización
 	interfaz.configura_entorno(argc, argv,
-		1080, 720, // tamaño de la ventana
-		200, 200, // posicion de la ventana
+		720, 360, // tamaño de la ventana
+		0, 0, // posicion de la ventana
 		"MinecraftIGV" // título de la ventana
 	);
 

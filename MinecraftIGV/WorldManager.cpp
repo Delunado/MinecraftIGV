@@ -17,10 +17,12 @@ void WorldManager::InitWorld() {
 		for (int y = 0; y < height; y++) {
 			for (int z = 0; z < depth; z++) {
 				Bloque* actualBlock = worldGrid.GetBlock(x, y, z);
-				if (x + z % 2 == 0)
+				if (rand() % 2 == 0)
 					actualBlock->SetTextureType(TEXTURES::DIRT);
-				else
+				else if (rand() % 2 == 0)
 					actualBlock->SetTextureType(TEXTURES::STONE);
+				else
+					actualBlock->SetTextureType(TEXTURES::NONE);
 				texturesManager.SetTextureToBlock(actualBlock);
 			}
 		}
@@ -33,7 +35,6 @@ void WorldManager::DrawWorld() {
 			for (int z = 0; z < depth; z++) {
 				//std::cout << "X: " << worldGrid.GetBlock(i, j, k)->xMundo << " Y : " << worldGrid.GetBlock(i, j, k)->yMundo << " Z: " << worldGrid.GetBlock(i, j, k)->zMundo << std::endl;
 				Bloque* actualBlock = worldGrid.GetBlock(x, y, z);
-				actualBlock->ApplyTexture();
 				actualBlock->DrawBlock();
 			}
 		}

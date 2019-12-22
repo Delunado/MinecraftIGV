@@ -22,13 +22,14 @@ class igvCamara {
 	public:
 		// atributos
 
-		tipoCamara tipo;	// paralela o perspectiva
+		// paralela o perspectiva
+		tipoCamara tipo;
 
 		// ventana de visión: parametros proyección paralela y frustum
 		GLdouble xwmin, xwmax, ywmin, ywmax;
 
 		// ventana de visión: parametros proyección perspectiva
-		GLdouble 	angulo, raspecto;
+		GLdouble angulo, raspecto;
 
 		// distancias de planos cercano y lejano
 		GLdouble znear, zfar;
@@ -41,15 +42,6 @@ class igvCamara {
 
 		// vector arriba
 		igvPunto3D V;
-
-		//------------------------
-
-		float POx = 3.0;
-		float POy = 2.0;
-		float POz = 4;
-		float rX = 0;
-		float rY = 0;
-		float rZ = 0;
 
 	public:
 		// Constructores por defecto y destructor
@@ -71,7 +63,9 @@ class igvCamara {
 		void set(tipoCamara _tipo, igvPunto3D _P0, igvPunto3D _r, igvPunto3D _V,
 			                         double _angulo, double _raspecto, double _znear, double _zfar);
 
-		void SumCameraW(float POx, float POy, float POz, float rX, float rY, float rZ);
+		void MoveForward(double speed);
+		void RotateLeft(double speed);
+		void RotateRight(double speed);
 
 		void aplicar(void); // aplica a los objetos de la escena la transformación de visión y la transformación de proyección
 		                    // asociadas a los parámetros de la cámara

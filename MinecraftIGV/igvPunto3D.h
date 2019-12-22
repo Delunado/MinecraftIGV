@@ -11,6 +11,7 @@
 #include <OpenGL/glu.h>
 #else
 #include <GL/glut.h>
+#include <iostream>
 #endif
 
 #define IGV_EPSILON 0.000001 // para comparaciones con 0
@@ -51,7 +52,16 @@ class igvPunto3D {
 		int operator == (const igvPunto3D& p);
 		int operator != (const igvPunto3D& p);
 
-		void set( const double& x, const double& y, const double& z);
+		igvPunto3D operator - (const igvPunto3D& p);
+		void operator += (const igvPunto3D& p);
+		igvPunto3D operator * (const double factor);
+
+		void set(const double& x, const double& y, const double& z);
+
+		//Functionalities
+		static igvPunto3D CrossProduct(igvPunto3D& p1, igvPunto3D& p2);
+
+		void Normalize();
 };
 #endif
 

@@ -10,7 +10,7 @@ extern igvInterfaz interfaz; // los callbacks deben ser estaticos y se requiere 
 
 // Metodos constructores -----------------------------------
 
-igvInterfaz::igvInterfaz ():worldManager(new WorldManager(2, 1, 3)) {}
+igvInterfaz::igvInterfaz ():worldManager(new WorldManager(3, 3, 3)) {}
 
 igvInterfaz::~igvInterfaz () {}
 
@@ -19,8 +19,8 @@ igvInterfaz::~igvInterfaz () {}
 
 void igvInterfaz::crear_mundo(void) {
 	// crear cámaras
-	interfaz.camara.set(IGV_PARALELA, igvPunto3D(3.0,2.0,4),igvPunto3D(0,0,0),igvPunto3D(0,1.0,0),
-		                                -1*4.5, 1*4.5, -1*4.5, 1*4.5, -1*3, 200);
+	interfaz.camara.set(IGV_PERSPECTIVA, interfaz.igvNormal1, interfaz.igvNormal2, interfaz.igvNormal3,
+		55, 1.3f, 0.01, 100);
 
 	std::cout << "Iniciando el mundo" << std::endl;
 	worldManager->InitWorld();
@@ -72,7 +72,6 @@ void igvInterfaz::set_glutKeyboardFunc(unsigned char key, int x, int y) {
 	switch (key) {
 
 		case 'c': 
-
 			if (interfaz.camara.tipo != IGV_PERSPECTIVA) {
 
 				interfaz.camara.set(IGV_PERSPECTIVA, interfaz.igvNormal1, interfaz.igvNormal2, interfaz.igvNormal3,
@@ -91,38 +90,34 @@ void igvInterfaz::set_glutKeyboardFunc(unsigned char key, int x, int y) {
 			interfaz.camara.cambiarDistanciaPlano(0.2);
 			interfaz.camara.aplicar();
 		break;
-		case 'z':
+		case 'X':
 			interfaz.camara.cambiarDistanciaPlano(-0.2);
 			interfaz.camara.aplicar();
 		break;
 		case 'v': 
-
 			if (interfaz.newFormat == 0) {
 
 				interfaz.newFormat = interfaz.get_ancho_ventana() * 9 / 16;
-
-
 			}
 			else {
 
 				interfaz.newFormat = 0;
-
 			}
 
 			interfaz.set_glutDisplayFunc();
 		break;
 
 		case 'a':
-
+			interfaz.camara.RotateLeft(1.0);
 		break;
 		case 'd':
-	
+			interfaz.camara.RotateRight(1.0);
 		break;
 		case 'w':
-			interfaz.camara.SumCameraW(0.0f, 1.0f, 5.0f,     0.0f + 0.0f, 1.0f, 5.0f + -1.0f );
+			interfaz.camara.MoveForward(1.0);
 		break;
 		case 's':
-
+			interfaz.camara.MoveForward(-1.0);
 		break;
 		case 'q':
 
@@ -130,8 +125,11 @@ void igvInterfaz::set_glutKeyboardFunc(unsigned char key, int x, int y) {
 		case 'e':
 
 		break;
-		case 'b':
+		case 'z':
 			interfaz.camara.zoom(0.2f);
+		break;
+		case 'Z':
+			interfaz.camara.zoom(-0.2f);
 		break;
 
 		case 'j': // activa/desactiva la visualizacion de los ejes
@@ -147,8 +145,8 @@ void igvInterfaz::set_glutKeyboardFunc(unsigned char key, int x, int y) {
 void igvInterfaz::set_glutReshapeFunc(int w, int h) {
   // dimensiona el viewport al nuevo ancho y alto de la ventana
   // guardamos valores nuevos de la ventana de visualizacion
-  interfaz.set_ancho_ventana(w);
-  interfaz.set_alto_ventana(h);
+	interfaz.set_ancho_ventana(w);
+	interfaz.set_alto_ventana(h);
 
 	// establece los parámetros de la cámara y de la proyección
 	interfaz.camara.aplicar();

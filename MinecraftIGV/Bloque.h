@@ -47,12 +47,6 @@ public:
 		zMundo = (float)_z * size;
 	}
 
-	void ApplyTexture() {
-		if (texture != NULL)
-			texture->aplicar();
-		else
-			std::cout << "ERROR: TEXTURA NO ASIGNADA EN BLOQUE" << std::endl;
-	}
 
 private: 
 	const float size = 1.0f;

@@ -52,15 +52,6 @@ void igvEscena3D::visualizar(void) {
 		GLfloat white[] = { 1,1,1 };
 		glMaterialfv(GL_FRONT, GL_EMISSION, white);
 
-		//igvTextura* texxura = new igvTextura("stone.bmp");
-		//texxura->aplicar();
-
-		//igvTextura* texxura2 = new igvTextura("stone.bmp");
-		//texxura2->aplicar();
-
-		//igvTextura* texxura3 = new igvTextura("stone.bmp");
-		//texxura3->aplicar();
-
 		worldManager->DrawWorld();
 
 	glPopMatrix(); // restaura la matriz de modelado

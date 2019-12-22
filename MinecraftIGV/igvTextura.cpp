@@ -35,7 +35,6 @@ igvTextura::igvTextura(const char *fichero) {
 
 void igvTextura::aplicar(void) {
   glBindTexture(GL_TEXTURE_2D, idTextura);
-  std::cout << "ID: " << idTextura << std::endl;
 }
 
 igvTextura::~igvTextura() {

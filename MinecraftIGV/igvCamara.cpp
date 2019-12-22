@@ -1,6 +1,7 @@
 #include <GL/glut.h>
 #include "pch.h"
 #include <math.h>
+#include <cmath>
 
 #include "igvCamara.h"
 
@@ -55,19 +56,44 @@ void igvCamara::set(tipoCamara _tipo, igvPunto3D _P0, igvPunto3D _r, igvPunto3D 
 	zfar = _zfar;
 }
 
-void igvCamara::SumCameraW(float _POx, float _POy, float _POz, float _rX, float _rY, float _rZ)
+void igvCamara::MoveForward(double speed)
 {
-	POx += _POx;
-	POy += _POy;
-	POz += _POz;
-	rX += _rX;
-	rY += _rY;
-	rZ += _rZ;
+	igvPunto3D forward = r - P0;
+	
+	//Normalizing
+	forward.Normalize();
 
-	igvPunto3D po(POx, POy, POz);
-	igvPunto3D pe(rX, rY, rZ);
-	P0 = po;
-	r = pe;
+	//Moving
+	P0 += (forward * speed);
+	r += (forward * speed);
+}
+
+void igvCamara::RotateLeft(double speed)
+{
+	igvPunto3D forward = r - P0;
+
+	//Normalizing
+	forward.Normalize();
+
+	igvPunto3D left = igvPunto3D::CrossProduct(V, forward);
+
+	//Moving
+	//P0 += (left * speed);
+	r += (left * speed);
+}
+
+void igvCamara::RotateRight(double speed)
+{
+	igvPunto3D forward = r - P0;
+
+	//Normalizing
+	forward.Normalize();
+
+	igvPunto3D right = igvPunto3D::CrossProduct(forward, V);
+
+	//Moving
+	//P0 += (right * speed);
+	r += (right * speed);
 }
 
 void igvCamara::aplicar(void) {
