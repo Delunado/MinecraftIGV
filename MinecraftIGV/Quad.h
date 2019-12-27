@@ -19,7 +19,7 @@ public:
 	Quad();
 	~Quad();
 
-	void pintar_quad(float tam, float div_x = 50.0f, float div_z = 50.0f);	
+	void pintar_quad(float tam, float div_x = 1.0f, float div_z = 1.0f);	
 };
 
 #endif

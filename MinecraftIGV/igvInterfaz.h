@@ -14,14 +14,28 @@
 #include "igvEscena3D.h"
 #include "igvCamara.h"
 #include "WorldManager.h"
+#include "SelectionController.h"
 
 using namespace std;
+
+typedef enum {
+	IGV_VISUALIZAR,
+	IGV_SELECCIONAR,
+} modoInterfaz;
 
 class igvInterfaz {
 	protected:
 		// Atributos
 		int ancho_ventana; // ancho inicial de la ventana de visualizacion
 		int alto_ventana;  // alto inicial de la ventana de visualizacion
+
+		modoInterfaz modo; // IGV_VISUALIZAR: en la ventana se va a visualizar de manera normal la escena, 
+						   // IGV_SELECCIONAR: se ha pulsado sobre la ventana de visualización, la escena se debe
+					       // visualizar en modo selección
+
+		GLfloat pixel[3];
+
+		int cursorX, cursorY; // pixel de la pantalla sobre el que está situado el ratón, por pulsar o arrastrar
 
 		//-------------------------------------------------------------------CAMARA
 		igvPunto3D igvNormal1 = igvPunto3D(4.0, 5.0, 10.0);
@@ -40,6 +54,7 @@ class igvInterfaz {
 		igvEscena3D escena; // escena que se visualiza en la ventana definida por igvInterfaz
 		igvCamara camara; // cámara que se utiliza para visualizar la escena
 		WorldManager* worldManager; //se encarga de gestionar el mundo de juego
+		SelectionController selectionController; //se encargar de gestionar las selecciones
 
 	public:
 		// Constructores por defecto y destructor
@@ -59,6 +74,8 @@ class igvInterfaz {
 		                                               // se llama automáticamente cuano se camba el tamaño de la ventana
 		static void set_glutDisplayFunc(); // método para visualizar la escena
 
+		static void  set_glutMouseFunc(GLint boton, GLint estado, GLint x, GLint y); // control de pulsacion del raton
+		static void  set_glutMotionFunc(GLint x, GLint y); // control del desplazamiento del raton con boton pulsado
 
 		static void  set_glutMouseFunc(GLint boton, GLint estado, GLint x, GLint y);  //MOV RATON
 		static void  set_glutMotionFunc(GLint x, GLint y); // control del desplazamiento del raton con boton pulsado

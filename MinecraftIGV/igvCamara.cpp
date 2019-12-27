@@ -99,6 +99,7 @@ void igvCamara::RotateLeft(double speed)
 
 	//Normalizing
 	forward.Normalize();
+	igvPunto3D aux = igvPunto3D(1, 0, 1);
 
 	igvPunto3D left = igvPunto3D::CrossProduct(V, forward);
 
