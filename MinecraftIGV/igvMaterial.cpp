@@ -47,7 +47,6 @@ void igvMaterial::aplicar(void) {
 	float emision[3] = { 0, 0, 0 };
 	glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, emision);
 
-
 }
 
 void igvMaterial::set(igvColor _Ka, igvColor _Kd, igvColor _Ks, double _Ns) {

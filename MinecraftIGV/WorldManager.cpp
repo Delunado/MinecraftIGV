@@ -17,7 +17,7 @@ void WorldManager::InitWorld() {
 		for (int y = 0; y < height; y++) {
 			for (int z = 0; z < depth; z++) {
 				Bloque* actualBlock = worldGrid.GetBlock(x, y, z);
-				if (rand() % 2 == 0)
+				if (0 == 0)
 					actualBlock->SetTextureType(TEXTURES::DIRT);
 				else if (rand() % 2 == 0)
 					actualBlock->SetTextureType(TEXTURES::STONE);

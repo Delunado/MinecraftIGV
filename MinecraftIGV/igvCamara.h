@@ -64,9 +64,12 @@ class igvCamara {
 			                         double _angulo, double _raspecto, double _znear, double _zfar);
 
 		void MoveForward(double speed);
+		void MoveRight(double speed);
 		void MoveUp(double speed);
 		void RotateLeft(double speed);
 		void RotateRight(double speed);
+		void RotateUp(double speed);
+		void RotateDown(double speed);
 
 		void aplicar(void); // aplica a los objetos de la escena la transformación de visión y la transformación de proyección
 		                    // asociadas a los parámetros de la cámara

@@ -4,13 +4,15 @@
 #include <iostream>
 
 #include "igvInterfaz.h"
+#define LOWORD
+#define HIWORD
 
 extern igvInterfaz interfaz; // los callbacks deben ser estaticos y se requiere este objeto para acceder desde
                              // ellos a las variables de la clase
 
 // Metodos constructores -----------------------------------
 
-igvInterfaz::igvInterfaz ():worldManager(new WorldManager(3, 3, 3)) {}
+igvInterfaz::igvInterfaz ():worldManager(new WorldManager(5, 1, 5)) {}
 
 igvInterfaz::~igvInterfaz () {}
 
@@ -108,10 +110,10 @@ void igvInterfaz::set_glutKeyboardFunc(unsigned char key, int x, int y) {
 		break;
 
 		case 'a':
-			interfaz.camara.RotateLeft(1.0);
+			interfaz.camara.MoveRight(-1.0);
 		break;
 		case 'd':
-			interfaz.camara.RotateRight(1.0);
+			interfaz.camara.MoveRight(1.0);
 		break;
 		case 'w':
 			interfaz.camara.MoveForward(1.0);
@@ -176,9 +178,61 @@ void igvInterfaz::set_glutDisplayFunc() {
 	glutSwapBuffers(); // se utiliza, en vez de glFlush(), para evitar el parpadeo
 }
 
+
+void igvInterfaz::set_glutMouseFunc(GLint boton, GLint estado, GLint x, GLint y) {
+	// Apartado E: guardar el pixel pulsado
+	interfaz.cursorX = x;
+	interfaz.cursorY = y;
+
+	// Apartado E: renovar el contenido de la ventana de vision 
+	glutPostRedisplay();
+}
+
+
+void igvInterfaz::set_glutMotionFunc(GLint x, GLint y) {
+
+	interfaz.oldMouseX = interfaz.mouseX;
+	interfaz.oldMouseY = interfaz.mouseY;
+	interfaz.mouseX = x;
+	interfaz.mouseY = y;
+	
+	//Mov Camara eje X
+	if ((interfaz.mouseX - interfaz.oldMouseX) >= 0)
+	{
+		interfaz.camara.RotateRight(2.0);
+	}
+	else if ((interfaz.mouseX - interfaz.oldMouseX) < 0) 
+	{
+		interfaz.camara.RotateLeft(2.0);
+	}
+
+	if (interfaz.mouseX > interfaz.ancho_ventana - 50) {
+		glutWarpPointer(interfaz.ancho_ventana / 2, interfaz.alto_ventana / 2);
+	}
+	if (interfaz.mouseX < 50) {
+		glutWarpPointer(interfaz.ancho_ventana / 2, interfaz.alto_ventana / 2);
+	}
+
+	////Mov Camara eje Y
+	//if ((interfaz.mouseY - interfaz.oldMouseY) >= 0)
+	//{
+	//	interfaz.camara.RotateUp(2.0);
+	//}
+	//else if ((interfaz.mouseY - interfaz.oldMouseY) < 0)
+	//{
+	//	interfaz.camara.RotateDown(2.0);
+	//}
+
+	glutPostRedisplay();
+}
+
+
 void igvInterfaz::inicializa_callbacks() {
 	glutKeyboardFunc(set_glutKeyboardFunc);
 	glutReshapeFunc(set_glutReshapeFunc);
 	glutDisplayFunc(set_glutDisplayFunc);
 	glutSpecialFunc(set_glutSpecialFunc);
+
+	glutMouseFunc(set_glutMouseFunc);
+	glutPassiveMotionFunc(set_glutMotionFunc);
 }

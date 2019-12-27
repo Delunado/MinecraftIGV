@@ -30,8 +30,12 @@ class igvInterfaz {
 
 		float oldFormat = 0;
 		float newFormat = 0;
-		
 		//-------------------------------------------------------------------FIN CAMARA
+
+		//-------------------------------------------------------------------RATON
+		int cursorX, cursorY;
+	
+		//-------------------------------------------------------------------FIN RATON
 
 		igvEscena3D escena; // escena que se visualiza en la ventana definida por igvInterfaz
 		igvCamara camara; // cámara que se utiliza para visualizar la escena
@@ -42,6 +46,11 @@ class igvInterfaz {
 		igvInterfaz();
 		~igvInterfaz();
 
+		float oldMouseX;
+		float oldMouseY;
+		float mouseX;
+		float mouseY;
+
 		// Metodos estáticos
 		// callbacks de eventos
 		static void set_glutKeyboardFunc(unsigned char key, int x, int y); // metodo para control de eventos del teclado
@@ -49,6 +58,10 @@ class igvInterfaz {
 		static void set_glutReshapeFunc(int w, int h); // método que define la camara de vision y el viewport
 		                                               // se llama automáticamente cuano se camba el tamaño de la ventana
 		static void set_glutDisplayFunc(); // método para visualizar la escena
+
+
+		static void  set_glutMouseFunc(GLint boton, GLint estado, GLint x, GLint y);  //MOV RATON
+		static void  set_glutMotionFunc(GLint x, GLint y); // control del desplazamiento del raton con boton pulsado
 
 
 		// Metodos
