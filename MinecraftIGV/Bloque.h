@@ -14,11 +14,11 @@ class BoundingVolumeQuad;
 #include <vector>
 #include <iostream>
 
-class Bloque
+class Block
 {
 public:
-	Bloque(TEXTURES textureType, int _x, int _y, int _z);
-	~Bloque();
+	Block(TEXTURES textureType, int _x, int _y, int _z);
+	~Block();
 
 	int x, y, z;
 	float xMundo, yMundo, zMundo;

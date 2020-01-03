@@ -13,19 +13,27 @@ private:
 	Grid3D worldGrid;
 	TexturesManager texturesManager;
 	SelectionController* selectionController;
+
+	TEXTURES selectedTextureType; //La textura seleccionada actualmente
 public:
 	WorldManager(int _width, int _height, int _depth);
 	~WorldManager();
 
+	int GetWorldHeight();
+	int GetWorldWidth();
+	int GetWorldDepth();
+
 	void SetSelectionController(SelectionController* _selectionController);
 
-	void SetTextureToBlock(TEXTURES textureType, Bloque* block);
+	void SetSelectedTextureType(TEXTURES textureType);
+	void SetTextureToBlock(TEXTURES textureType, Block* block);
 
 	void InitWorld();
+	void ResetWorld();
 	void DrawWorld();
 	void DrawWorldBV();
 
-	void CreateBlock(Bloque* block, POSITION _position, TEXTURES textureType);
-	void EraseBlock(Bloque* block);
+	void CreateBlock(Block* block, POSITION _position);
+	void EraseBlock(Block* block);
 };
 

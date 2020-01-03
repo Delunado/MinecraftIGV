@@ -68,21 +68,19 @@ void igvCamara::MoveForward(double speed)
 	r += (forward * speed);
 }
 
-void igvCamara::MoveRight(double speed)
+void igvCamara::MoveLateral(double speed)
 {
 	igvPunto3D forward = r - P0;
 
 	//Normalizing
 	forward.Normalize();
 
-	igvPunto3D left = igvPunto3D::CrossProduct(forward, V );
+	igvPunto3D left = igvPunto3D::CrossProduct(forward, V);
 
 	//Moving
 	P0 += (left * speed);
 	r += (left * speed);
 }
-
-
 
 void igvCamara::MoveUp(double speed)
 {
@@ -99,12 +97,10 @@ void igvCamara::RotateLeft(double speed)
 
 	//Normalizing
 	forward.Normalize();
-	igvPunto3D aux = igvPunto3D(1, 0, 1);
 
 	igvPunto3D left = igvPunto3D::CrossProduct(V, forward);
 
 	//Moving
-	//P0 += (left * speed);
 	r += (left * speed);
 }
 
@@ -118,14 +114,13 @@ void igvCamara::RotateRight(double speed)
 	igvPunto3D right = igvPunto3D::CrossProduct(forward, V);
 
 	//Moving
-	//P0 += (right * speed);
 	r += (right * speed);
 }
 
 void igvCamara::RotateUp(double speed)
 {
 	igvPunto3D forward = r - P0;
-	igvPunto3D aux = {1,0,0};
+	igvPunto3D aux = {0,-1,0};
 
 	//Normalizing
 	forward.Normalize();
@@ -133,15 +128,14 @@ void igvCamara::RotateUp(double speed)
 	igvPunto3D up = igvPunto3D::CrossProduct(aux, forward);
 
 	//Moving
-	//P0 += (left * speed);
-	r += (up * speed);
+	r += (aux * speed);
 }
 
 
 void igvCamara::RotateDown(double speed)
 {
 	igvPunto3D forward = r - P0;
-	igvPunto3D aux = {1,0,0};
+	igvPunto3D aux = {0,1,0};
 
 	//Normalizing
 	forward.Normalize();
@@ -149,8 +143,7 @@ void igvCamara::RotateDown(double speed)
 	igvPunto3D Down = igvPunto3D::CrossProduct(forward, aux);
 
 	//Moving
-	//P0 += (left * speed);
-	r += (Down * speed);
+	r += (aux * speed);
 }
 
 void igvCamara::aplicar(void) {

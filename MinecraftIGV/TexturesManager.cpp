@@ -3,7 +3,7 @@
 #include "TextureTypes.h"
 
 
-TexturesManager::TexturesManager()
+TexturesManager::TexturesManager(): textureVector()
 {
 	
 }
@@ -21,7 +21,7 @@ void TexturesManager::LoadTextures()
 	textureVector[1] = textureStone;
 }
 
-void TexturesManager::SetTextureToBlock(Bloque* block)
+void TexturesManager::SetTextureToBlock(Block* block)
 {
 	block->SetTexture(GetTexture(block->GetTextureType()));
 }

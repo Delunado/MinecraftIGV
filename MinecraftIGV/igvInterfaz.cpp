@@ -12,8 +12,7 @@ extern igvInterfaz interfaz; // los callbacks deben ser estaticos y se requiere 
 // Metodos constructores -----------------------------------
 
 
-igvInterfaz::igvInterfaz() :worldManager(new WorldManager(5, 5, 5)), selectionController() {}
->>>>>>> Seleccion V1 (arreglar fallo al crear bloque)
+igvInterfaz::igvInterfaz() :worldManager(new WorldManager(15, 5, 15)), selectionController() {}
 
 igvInterfaz::~igvInterfaz() {}
 
@@ -22,7 +21,7 @@ igvInterfaz::~igvInterfaz() {}
 
 void igvInterfaz::crear_mundo(void) {
 	// crear cámaras
-	interfaz.camara.set(IGV_PERSPECTIVA, interfaz.igvNormal1, interfaz.igvNormal2, interfaz.igvNormal3,
+	interfaz.camara.set(IGV_PERSPECTIVA, interfaz.initialEye, interfaz.initialDirection, interfaz.initialUp,
 		55, 1.3f, 0.01, 100);
 
 	//Asignamos el SelectionController al WorldManager
@@ -68,30 +67,9 @@ void igvInterfaz::inicia_bucle_visualizacion() {
 	glutMainLoop(); // inicia el bucle de visualizacion de OpenGL
 }
 
-void igvInterfaz::set_glutSpecialFunc(int key, int x, int y) {
-	// Apartado F: manejo de las teclas especiales del teclado para mover la posición del foco
-
-	glutPostRedisplay(); // renueva el contenido de la ventana de vision
-}
 
 void igvInterfaz::set_glutKeyboardFunc(unsigned char key, int x, int y) {
 	switch (key) {
-
-	case 'c':
-		if (interfaz.camara.tipo != IGV_PERSPECTIVA) {
-
-			interfaz.camara.set(IGV_PERSPECTIVA, interfaz.igvNormal1, interfaz.igvNormal2, interfaz.igvNormal3,
-				55, 1.3f, 0.01, 100);
-		}
-		else {
-
-			interfaz.camara.set(IGV_PARALELA, interfaz.igvNormal1, interfaz.igvNormal2, interfaz.igvNormal3,
-				-1 * 3, 1 * 3, -1 * 3, 1 * 3, -1 * 3, 200);
-		}
-
-		interfaz.camara.aplicar();
-
-		break;
 	case 'x':
 		interfaz.camara.cambiarDistanciaPlano(0.2);
 		interfaz.camara.aplicar();
@@ -102,26 +80,21 @@ void igvInterfaz::set_glutKeyboardFunc(unsigned char key, int x, int y) {
 		break;
 	case 'v':
 		if (interfaz.newFormat == 0) {
-
 			interfaz.newFormat = interfaz.get_ancho_ventana() * 9 / 16;
 		}
 		else {
-
 			interfaz.newFormat = 0;
 		}
-
 		interfaz.set_glutDisplayFunc();
 		break;
-
 	case 'a':
-			interfaz.camara.MoveRight(-1.0);
+		interfaz.camara.MoveLateral(-1.0);
 		break;
 	case 'd':
-			interfaz.camara.MoveRight(1.0);
+		interfaz.camara.MoveLateral(1.0);
 		break;
 	case 'w':
 		interfaz.camara.MoveForward(1.0);
-
 		break;
 	case 's':
 		interfaz.camara.MoveForward(-1.0);
@@ -132,13 +105,22 @@ void igvInterfaz::set_glutKeyboardFunc(unsigned char key, int x, int y) {
 	case 'e':
 		interfaz.camara.MoveUp(-1.0);
 		break;
+	case 'r':
+		interfaz.worldManager->ResetWorld();
+		break;
 	case 'z':
 		interfaz.camara.zoom(0.2f);
 		break;
 	case 'Z':
 		interfaz.camara.zoom(-0.2f);
 		break;
-
+	//Casos para seleccionar las texturas
+	case '1':
+		interfaz.worldManager->SetSelectedTextureType(TEXTURES::DIRT);
+		break;
+	case '2':
+		interfaz.worldManager->SetSelectedTextureType(TEXTURES::STONE);
+		break;
 	case 'j': // activa/desactiva la visualizacion de los ejes
 		interfaz.escena.set_ejes(interfaz.escena.get_ejes()?false:true);
 	  	break;
@@ -172,19 +154,21 @@ void igvInterfaz::set_glutDisplayFunc() {
 		//Dibujamos los BV
 		interfaz.worldManager->DrawWorldBV();
 
-		//We obtain the clicked pixel
+		//Obtenemos el pixel clickado
 		glReadPixels(interfaz.cursorX, interfaz.alto_ventana - interfaz.cursorY, 1, 1, GL_RGB, GL_FLOAT, interfaz.pixel);
 
-		//Aqui hay que comprobar objeto clickado y hacer cosas con el
-		std::cout << "Pixel: " << interfaz.pixel[0] << ", " << interfaz.pixel[1] << ", " << interfaz.pixel[2] << std::endl;
+		Block* auxBlock = interfaz.selectionController.GetBlock(interfaz.pixel);
 
-		Bloque* auxBlock = interfaz.selectionController.GetBlock(interfaz.pixel);
-
-		if (auxBlock != NULL)
-			//interfaz.worldManager->EraseBlock(auxBlock);
-			interfaz.worldManager->CreateBlock(auxBlock, interfaz.selectionController.GetPosition(interfaz.pixel), TEXTURES::STONE);
+		if (auxBlock != NULL) {
+			if (interfaz.rightClick)
+				interfaz.worldManager->EraseBlock(auxBlock);
+			if (interfaz.leftClick)
+				interfaz.worldManager->CreateBlock(auxBlock, interfaz.selectionController.GetPosition(interfaz.pixel));
+		}
 
 		interfaz.modo = IGV_VISUALIZAR;
+		interfaz.leftClick = false;
+		interfaz.rightClick = false;
 
 		glEnable(GL_LIGHTING);
 		glEnable(GL_TEXTURE_2D);
@@ -205,48 +189,26 @@ void igvInterfaz::set_glutDisplayFunc() {
 		//visualiza la escena
 		interfaz.escena.visualizar();
 
-		//actualiza el mundo
-
-
 		// refresca la ventana
 		glutSwapBuffers(); // se utiliza, en vez de glFlush(), para evitar el parpadeo
 	}
 }
 
 void igvInterfaz::set_glutMouseFunc(GLint boton, GLint estado, GLint x, GLint y) {
-	// Apartado E: guardar que el boton se ha presionado o se ha soltado, si se ha pulsado hay que
-	// pasar a modo IGV_SELECCIONAR
 	if (boton == GLUT_LEFT_BUTTON) {
 		if (estado == GLUT_DOWN) {
 			interfaz.modo = IGV_SELECCIONAR;
+			interfaz.leftClick = true;
+		}
+	}
+	else if (boton == GLUT_RIGHT_BUTTON) {
+		if (estado == GLUT_DOWN) {
+			interfaz.modo = IGV_SELECCIONAR;
+			interfaz.rightClick = true;
 		}
 	}
 
-	// Apartado E: guardar el pixel pulsado	
-	interfaz.cursorX = x;
-	interfaz.cursorY = y;
-
-	// Apartado E: renovar el contenido de la ventana de vision 
-	glutPostRedisplay();
-}
-
-void igvInterfaz::set_glutMotionFunc(GLint x, GLint y) {
-
-	// Apartado F: si el botón está retenido y hay algún objeto seleccionado,
-	// comprobar el objeto seleccionado y la posición del ratón y actualizar
-	// convenientemente el grado de libertad del objeto correspondiente 
-
-	// Apartado F: guardar la nueva posición del ratón 
-	interfaz.cursorX = x;
-	interfaz.cursorY = y;
-
-	// Apartado F: renovar el contenido de la ventana de vision 
-	glutPostRedisplay();
-}
-
-
-void igvInterfaz::set_glutMouseFunc(GLint boton, GLint estado, GLint x, GLint y) {
-	// Apartado E: guardar el pixel pulsado
+	//Guardamos la posicion donde se ha clickado
 	interfaz.cursorX = x;
 	interfaz.cursorY = y;
 
@@ -256,38 +218,53 @@ void igvInterfaz::set_glutMouseFunc(GLint boton, GLint estado, GLint x, GLint y)
 
 
 void igvInterfaz::set_glutMotionFunc(GLint x, GLint y) {
+
+	bool warping = false;
+
+	if (interfaz.mouseX > interfaz.ancho_ventana - 50) {
+		glutWarpPointer(interfaz.ancho_ventana / 2, interfaz.alto_ventana / 2);
+		warping = true;
+	}
+	if (interfaz.mouseX < 50) {
+		glutWarpPointer(interfaz.ancho_ventana / 2, interfaz.alto_ventana / 2);
+		warping = true;
+	}
+
+	if (interfaz.mouseY > interfaz.alto_ventana - 50) {
+		glutWarpPointer(interfaz.ancho_ventana / 2, interfaz.alto_ventana / 2);
+		warping = true;
+	}
+	if (interfaz.mouseY < 50) {
+		glutWarpPointer(interfaz.ancho_ventana / 2, interfaz.alto_ventana / 2);
+		warping = true;
+	}
 
 	interfaz.oldMouseX = interfaz.mouseX;
 	interfaz.oldMouseY = interfaz.mouseY;
 	interfaz.mouseX = x;
 	interfaz.mouseY = y;
 	
-	//Mov Camara eje X
-	if ((interfaz.mouseX - interfaz.oldMouseX) >= 0)
-	{
-		interfaz.camara.RotateRight(2.0);
-	}
-	else if ((interfaz.mouseX - interfaz.oldMouseX) < 0) 
-	{
-		interfaz.camara.RotateLeft(2.0);
-	}
+	if (!warping) {
+		//Mov Camara eje X
+		if ((interfaz.mouseX - interfaz.oldMouseX) > 0)
+		{
+			interfaz.camara.RotateRight(abs(interfaz.mouseX - interfaz.oldMouseX));
+		}
+		else if ((interfaz.mouseX - interfaz.oldMouseX) < 0)
+		{
+			interfaz.camara.RotateLeft(abs(interfaz.mouseX - interfaz.oldMouseX));
+		}
 
-	if (interfaz.mouseX > interfaz.ancho_ventana - 50) {
-		glutWarpPointer(interfaz.ancho_ventana / 2, interfaz.alto_ventana / 2);
+		//Mov Camara eje Y
+		if ((interfaz.mouseY - interfaz.oldMouseY) >= 0)
+		{
+			interfaz.camara.RotateUp(abs(interfaz.mouseY - interfaz.oldMouseY));
+		}
+		else if ((interfaz.mouseY - interfaz.oldMouseY) < 0)
+		{
+			interfaz.camara.RotateDown(abs(interfaz.mouseY - interfaz.oldMouseY));
+		}
 	}
-	if (interfaz.mouseX < 50) {
-		glutWarpPointer(interfaz.ancho_ventana / 2, interfaz.alto_ventana / 2);
-	}
-
-	////Mov Camara eje Y
-	//if ((interfaz.mouseY - interfaz.oldMouseY) >= 0)
-	//{
-	//	interfaz.camara.RotateUp(2.0);
-	//}
-	//else if ((interfaz.mouseY - interfaz.oldMouseY) < 0)
-	//{
-	//	interfaz.camara.RotateDown(2.0);
-	//}
 
 	glutPostRedisplay();
 }
@@ -297,7 +274,6 @@ void igvInterfaz::inicializa_callbacks() {
 	glutKeyboardFunc(set_glutKeyboardFunc);
 	glutReshapeFunc(set_glutReshapeFunc);
 	glutDisplayFunc(set_glutDisplayFunc);
-	glutSpecialFunc(set_glutSpecialFunc);
 
 	glutMouseFunc(set_glutMouseFunc);
 	glutPassiveMotionFunc(set_glutMotionFunc);

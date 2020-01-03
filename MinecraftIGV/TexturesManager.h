@@ -12,14 +12,14 @@
 class TexturesManager
 {
 private:
-	std::array<igvTextura*, 2> textureVector; //2 is the number of elements of the array
+	std::array<igvTextura*, 2> textureVector; //2 is the number of textures to load
 public:
 	TexturesManager();
 	~TexturesManager();
 
     igvTextura* GetTexture(TEXTURES texture);	
 	void LoadTextures();
-	void SetTextureToBlock(Bloque* block);
+	void SetTextureToBlock(Block* block);
 };
 
 #endif

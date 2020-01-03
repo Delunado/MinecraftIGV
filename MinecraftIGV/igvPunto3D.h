@@ -59,9 +59,8 @@ class igvPunto3D {
 		void set(const double& x, const double& y, const double& z);
 
 		//Functionalities
-		static igvPunto3D CrossProduct(igvPunto3D& p1, igvPunto3D& p2);
-
-		void Normalize();
+		static igvPunto3D CrossProduct(igvPunto3D& p1, igvPunto3D& p2); //Producto cruzado de dos vectores (puntos)
+		void Normalize(); //Normaliza el vector (punto)
 };
 #endif
 

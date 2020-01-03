@@ -3,5 +3,5 @@
 enum TEXTURES { 
 	NONE, 
 	DIRT, 
-	STONE 
+	STONE,
 };
