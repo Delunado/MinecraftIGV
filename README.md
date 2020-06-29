@@ -5,7 +5,7 @@ It's a Minecraft inspired demo, where you can moved around a small world and cre
 
 [VIDEO]()
 
-[**Try it here!**]() 
+[**Try it here!**](https://github.com/Delunado/MinecraftIGV/raw/master/Executable/MinecraftIGVDemo.zip) 
 
 ### Controls Manual
 **Important**: letter capitalization is important. If the demo is not working, check your Caps Lock.  
