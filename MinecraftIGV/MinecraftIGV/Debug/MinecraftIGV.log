@@ -1,4 +1,0 @@
-﻿  MinecraftIGV.cpp
-c:\users\delunado\google drive\universidad\3º curso\igv\prácticas\proyecto\minecraftigv\minecraftigv\minecraftigv\igvpunto3d.h(25): warning C4091: 'typedef ': se ha omitido a la izquierda de '<unnamed-enum-X>' cuando no hay ninguna variable declarada
-c:\users\delunado\google drive\universidad\3º curso\igv\prácticas\proyecto\minecraftigv\minecraftigv\minecraftigv\igvcolor.h(17): warning C4091: 'typedef ': se ha omitido a la izquierda de '<unnamed-enum-R>' cuando no hay ninguna variable declarada
-  MinecraftIGV.vcxproj -> C:\Users\Delunado\Google Drive\Universidad\3º Curso\IGV\Prácticas\Proyecto\MinecraftIGV\MinecraftIGV\Debug\MinecraftIGV.exe

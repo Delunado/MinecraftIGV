@@ -1,0 +1,10 @@
+#pragma once
+
+typedef enum {
+	BOTTOM_FACE,
+	TOP_FACE,
+	FRONT_FACE,
+	BACK_FACE,
+	LEFT_FACE,
+	RIGHT_FACE
+} POSITION;
