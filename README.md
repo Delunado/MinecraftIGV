@@ -3,6 +3,8 @@ MinecraftIGV is a final project for an University course named "Computer Graphic
 
 It's a Minecraft inspired demo, where you can move around a small world and create/destroy different blocks. It has been coded using C++ & OpenGL, in around 2 weeks.
 
+**Check a demo vide here:**
+
 [![Check a demo video here](https://img.youtube.com/vi/vj5_X2jaoLQ/0.jpg)](https://www.youtube.com/watch?v=vj5_X2jaoLQ)
 
 [**Try it here!**](https://github.com/Delunado/MinecraftIGV/raw/master/Executable/MinecraftIGVDemo.zip) 
